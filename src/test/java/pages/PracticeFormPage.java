@@ -1,33 +1,45 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import pages.components.BirthdayDateInput;
-import pages.components.TableRusaltComponent;
+import pages.components.CalendarComponent;
+import pages.components.TableResaltComponent;
 
+import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class PracticeFormPage {
+public class PracticeFormPage extends PageBase {
 
-    public static SelenideElement firstNameInput = $("[id=firstName]");
-    public static SelenideElement lastNameInput = $("[id=lastName]");
-    public static SelenideElement userEmailInput = $("[id=userEmail]");
-    public static SelenideElement userNumberInput = $("[id=userNumber]");
-    public static SelenideElement hobbiesWrapper = $("#hobbiesWrapper");
-    public static SelenideElement genterWrapper = $("#genterWrapper");
-    public static SelenideElement subjectsInput = $("#subjectsInput");
+    private SelenideElement
+            firstNameInput = $("[id=firstName]"),
+            lastNameInput = $("[id=lastName]"),
+            userEmailInput = $("[id=userEmail]"),
+            userNumberInput = $("[id=userNumber]"),
+            hobbiesWrapper = $("#hobbiesWrapper"),
+            genderWrapper = $("#genterWrapper"),
+            subjectsInput = $("#subjectsInput"),
 
-    public static SelenideElement uploadFile = $("#uploadPicture");
-    public static SelenideElement userAdress = $("#currentAddress");
-    public static SelenideElement userState = $("#state");
-    public static SelenideElement userCity = $("#city");
-    public static SelenideElement submit = $("#submit");
-    TableRusaltComponent tableRusaltComponent = new TableRusaltComponent();
-    BirthdayDateInput birthdayDateInput = new BirthdayDateInput();
+            subjectsField = $("#subjectsWrapper"),
+            uploadFile = $("#uploadPicture"),
+            userAddress = $("#currentAddress"),
+            userState = $("#state"),
+            userCity = $("#city"),
+            submitButton = $("#submit"),
+            firstNameClass = $("#firstName.form-control"),
+            lastNameClass = $("#lastName.form-control");
+
+
+    TableResaltComponent tableResaltComponent = new TableResaltComponent();
+    CalendarComponent calendarComponent = new CalendarComponent();
+
 
     public PracticeFormPage openPage() {
         open("/automation-practice-form");
-        executeJavaScript("document.querySelector('#fixedban').style.display='none';");
+        return this;
+    }
+
+    public PracticeFormPage bannerRemove(){
+        adBanerRemove();
         return this;
     }
 
@@ -51,15 +63,15 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage setUserGenter(String value) {
-        genterWrapper.$(byText(value)).click();
+    public PracticeFormPage setUserGender(String value) {
+        genderWrapper.$(byText(value)).click();
         ;
         return this;
     }
 
-    public PracticeFormPage setSubjectBiology() {
-        subjectsInput.setValue("b");
-        $("#react-select-2-option-0").click();
+    public PracticeFormPage selectSubject(String setValue, String selectValue) {
+        subjectsInput.setValue(setValue);
+        subjectsField.$(byText(selectValue)).click();;
         return this;
     }
 
@@ -74,36 +86,46 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage setAdress(String value) {
-        userAdress.setValue(value);
+    public PracticeFormPage setAddress(String value) {
+        userAddress.setValue(value);
         return this;
     }
 
-    public PracticeFormPage setState() {
+    public PracticeFormPage setState(String value) {
         userState.scrollIntoView(true).click();
-        ;
-        $("#react-select-3-option-1").click();
+        $(byText(value)).click();
         return this;
     }
 
-    public PracticeFormPage setCity() {
+    public PracticeFormPage setCity(String value) {
         userCity.click();
-        $("#react-select-4-option-1").click();
+        $(byText(value)).click();;
         return this;
     }
 
     public PracticeFormPage submitButton() {
-        submit.scrollIntoView(true).click();
+        submitButton.scrollIntoView(true).click();
         return this;
     }
 
     public PracticeFormPage checkResult(String key, String value) {
-        tableRusaltComponent.tableResultCheck(key, value);
+        tableResaltComponent.tableResultCheck(key, value);
         return this;
     }
 
     public PracticeFormPage setBirthday(String year, String month, String day) {
-        birthdayDateInput.setBDate(year, month, day);
+        calendarComponent.setBDate(year, month, day);
+        return this;
+    }
+
+    // Checkers
+    public PracticeFormPage firstNameRedControlCheck() {
+        firstNameClass.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
+        return this;
+    }
+
+    public PracticeFormPage lastNameRedControlCheck() {
+        lastNameClass.shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
         return this;
     }
 }

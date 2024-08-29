@@ -1,9 +1,10 @@
 import org.junit.jupiter.api.Test;
-import pages.PracticeFormChecker;
 import pages.PracticeFormPage;
-import pages.TestBase;
 
-public class DemoQAPracticeFormPObj extends TestBase {
+
+import static com.codeborne.selenide.Selenide.$;
+
+public class DemoQAPracticeFormPObjTest extends TestBase {
 
     String name = "Danila";
     String lastName = "Bogrov";
@@ -12,23 +13,24 @@ public class DemoQAPracticeFormPObj extends TestBase {
     String fileName = "ScreenshotHW1.png";
     String address = "ulitsa Pushkina, dom Kolotoshkina";
     PracticeFormPage practiceFormPage = new PracticeFormPage();
-    PracticeFormChecker practiceFormChecker = new PracticeFormChecker();
+
 
     @Test
     void allFormCompletePObjTest() {
         practiceFormPage.openPage()
+                .bannerRemove()
                 .setFirstName(name)
                 .setLastName(lastName)
                 .setUserEmail(mail)
-                .setUserGenter("Other")
+                .setUserGender("Other")
                 .setUserNumber(number)
                 .setBirthday("1990", "May", "16")
-                .setSubjectBiology()
+                .selectSubject("b", "Biology")
                 .setUserHobbie("Reading")
                 .uploadFile(fileName)
-                .setAdress(address)
-                .setState()
-                .setCity()
+                .setAddress(address)
+                .setState("Uttar Pradesh")
+                .setCity("Lucknow")
                 .submitButton()
 
                 .checkResult("Student Name", name + " " + lastName)
@@ -50,7 +52,7 @@ public class DemoQAPracticeFormPObj extends TestBase {
                 .setFirstName(name)
                 .setLastName(lastName)
                 .setUserEmail(mail)
-                .setUserGenter("Other")
+                .setUserGender("Other")
                 .setUserNumber(number)
                 .setBirthday("1990", "May", "16")
                 .submitButton()
@@ -69,20 +71,20 @@ public class DemoQAPracticeFormPObj extends TestBase {
     }
 
     @Test
-    void negtiveFormCompletePObjTest(){
+    void negtiveFormCompletePObjTest() {
         practiceFormPage.openPage()
                 .setUserEmail(mail)
-                .setUserGenter("Other")
+                .setUserGender("Other")
                 .setUserNumber(number)
                 .setBirthday("1990", "May", "16")
-                .setSubjectBiology()
+                .selectSubject("b", "Biology")
                 .setUserHobbie("Reading")
                 .uploadFile(fileName)
-                .setAdress(address)
-                .setState()
-                .setCity()
-                .submitButton();
-        practiceFormChecker.firstNameRedControlCheck()
+                .setAddress(address)
+                .setState("Uttar Pradesh")
+                .setCity("Lucknow")
+                .submitButton()
+                .firstNameRedControlCheck()
                 .lastNameRedControlCheck();
     }
 

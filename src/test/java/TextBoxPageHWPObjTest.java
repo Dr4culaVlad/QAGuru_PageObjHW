@@ -1,8 +1,7 @@
 import org.junit.jupiter.api.Test;
-import pages.TestBase;
 import pages.TextBoxPage;
 
-public class TextBoxPageHWPObj extends TestBase {
+public class TextBoxPageHWPObjTest extends TestBase {
 
     TextBoxPage textBoxPage = new TextBoxPage();
 
