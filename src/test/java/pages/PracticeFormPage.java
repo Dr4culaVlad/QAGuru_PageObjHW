@@ -69,9 +69,8 @@ public class PracticeFormPage extends PageBase {
         return this;
     }
 
-    public PracticeFormPage selectSubject(String setValue, String selectValue) {
-        subjectsInput.setValue(setValue);
-        subjectsField.$(byText(selectValue)).click();;
+    public PracticeFormPage selectSubject(String value) {
+        subjectsInput.setValue(value).pressEnter();
         return this;
     }
 
