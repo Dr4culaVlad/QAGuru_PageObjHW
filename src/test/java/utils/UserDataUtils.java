@@ -15,10 +15,11 @@ public class UserDataUtils {
 
     public String subject = faker.options().option("Maths", "Accounting", "Arts", "Social Studies", "Biology", "Physics", "Chemistry", "Computer Science", "Commerce", "Economics", "Civics", "Hindi", "English", "History");
     public String month = faker.options().option("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-    public String year = Integer.toString(faker.number().numberBetween(1900,2100));
+    public String year = Integer.toString(faker.number().numberBetween(1900, 2100));
     public String day = Integer.toString(chooseDay());
 
-    public String state = faker.options().option("Rajasthan", "NCR", "Uttar Pradesh", "Haryana");;
+    public String state = faker.options().option("Rajasthan", "NCR", "Uttar Pradesh", "Haryana");
+    ;
     public String city = chooseCity();
     public String hobby = faker.options().option("Sports", "Reading", "Music");
     public String fileName = "ScreenshotHW1.png";
@@ -45,14 +46,6 @@ public class UserDataUtils {
             return faker.options().option("Jaipur", "Jaipur");
         }
     }
-
-    //state
-
-    //city
-
-
-    //Date year , date day and date month methods
-    // state and city methods
 
 }
 
